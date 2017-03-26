@@ -72,7 +72,7 @@ namespace exceptxx
         ///////////////////////////////////////////////////
         // std::exception interface
 
-        virtual char const* what() const override
+        virtual char const* what() const EXCEPT_XX_NOEXCEPT override
         {
             if (m_what.empty())
             {

@@ -2,6 +2,7 @@
 #include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 #include <exceptxx/ThrowHelper.h>
+#include <string.h>
 
 namespace exceptxx
 {
@@ -40,7 +41,11 @@ namespace exceptxx
         {
             char buffer[0x200] = {};
 
+#ifdef _WIN32
             if (0 != ::strerror_s(buffer, sizeof(buffer), m_error))
+#else
+            if (0 != ::strerror_r(m_error, buffer, sizeof(buffer)))
+#endif
             {
                 return "Unknown error code";
             }

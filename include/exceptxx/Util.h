@@ -6,6 +6,12 @@ namespace exceptxx
     using namespace std;
 
 #ifdef _WIN32
+#   define EXCEPT_XX_NOEXCEPT
+#else
+#   define EXCEPT_XX_NOEXCEPT   noexcept
+#endif
+
+#ifdef _WIN32
     using HRESULT = long;
     using DWORD = unsigned long;
     using NTSTATUS = long;
