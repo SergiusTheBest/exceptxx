@@ -1,7 +1,7 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 #include <exceptxx/ThrowHelper.h>
-#include <exceptxx/Util.h>
 
 namespace exceptxx
 {
@@ -17,7 +17,7 @@ namespace exceptxx
         virtual Code code() const override
         {
 #ifdef _WIN32
-            return winapi::HR_E_INVALIDARG;
+            return HR_E_INVALIDARG;
 #else
             return EINVAL;
 #endif
@@ -48,4 +48,4 @@ namespace exceptxx
     };
 }
 
-#define CHECK_PRECOND(cond)     if (!cond) THROW_HELPER(PrecondException, #cond)
+#define CHECK_PRECOND(cond)     if (!(cond)) THROW_HELPER(PrecondException, #cond)

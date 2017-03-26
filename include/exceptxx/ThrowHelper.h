@@ -1,10 +1,9 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <sstream>
 
 namespace exceptxx
 {
-    using namespace std;
-
     template<class T>
     struct ThrowHelper
     {

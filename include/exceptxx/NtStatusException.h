@@ -1,22 +1,22 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 #include <exceptxx/ThrowHelper.h>
-#include <exceptxx/Util.h>
 
 namespace exceptxx
 {
-    class NtStatusException : public BaseException
+    class NtstatusException : public BaseException
     {
     public:
-        using Error = winapi::NTSTATUS;
+        using Error = NTSTATUS;
 
-        NtStatusException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
+        NtstatusException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
         {
         }
 
         virtual Code code() const override
         {
-            return winapi::HresultFromNt(m_error);
+            return HresultFromNt(m_error);
         }
 
         virtual const char* tag() const override
@@ -34,7 +34,7 @@ namespace exceptxx
 
         virtual string description() const override
         {
-            return formatMessage(m_error, winapi::GetModuleHandleW(L"ntdll"));
+            return formatMessage(m_error, GetModuleHandleW(L"ntdll"));
         }
 
         virtual unique_ptr<BaseException> cloneMove() override
@@ -47,6 +47,6 @@ namespace exceptxx
     };
 }
 
-#define THROW_NTSTATUS(error)           THROW_HELPER(NtStatusException, error)
-#define CHECK_NTSTATUS(error)           if (auto exceptxxLocalError = error) if (exceptxxLocalError < 0) THROW_NTSTATUS(error)
+#define THROW_NTSTATUS(error)           THROW_HELPER(NtstatusException, error)
+#define CHECK_NTSTATUS(error)           if (auto exceptxxLocalError = static_cast<exceptxx::NtstatusException::Error>(error)) if (exceptxxLocalError < 0) THROW_NTSTATUS(error)
 #define THROW_NTSTATUS_IF(cond, error)  if (cond) THROW_NTSTATUS(error)

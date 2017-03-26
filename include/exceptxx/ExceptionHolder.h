@@ -1,4 +1,5 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 
 namespace exceptxx
@@ -36,6 +37,11 @@ namespace exceptxx
         const BaseException* operator->() const
         {
             return m_ex.get();
+        }
+
+        void reset()
+        {
+            m_ex.reset();
         }
 
     private:

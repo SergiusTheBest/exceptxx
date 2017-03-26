@@ -1,4 +1,5 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 
 namespace exceptxx

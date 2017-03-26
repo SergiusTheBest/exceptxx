@@ -1,4 +1,5 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 #include <exceptxx/ThrowHelper.h>
 
@@ -58,7 +59,7 @@ namespace exceptxx
 }
 
 #define THROW_ERRNO(error)          THROW_HELPER(ErrnoException, error)
-#define CHECK_ERRNO(error)          if (auto exceptxxLocalError = error) THROW_ERRNO(exceptxxLocalError)
+#define CHECK_ERRNO(error)          if (auto exceptxxLocalError = (error)) THROW_ERRNO(exceptxxLocalError)
 #define THROW_LAST_ERRNO()          THROW_ERRNO(errno)
 #define THROW_ERRNO_IF(cond, error) if (cond) THROW_ERRNO(error)
 #define THROW_LAST_ERRNO_IF(cond)   if (cond) THROW_LAST_ERRNO()

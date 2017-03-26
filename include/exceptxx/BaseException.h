@@ -1,8 +1,9 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exception>
+#include <string>
 #include <memory>
 #include <sstream>
-#include <exceptxx/Util.h>
 
 namespace exceptxx
 {
@@ -11,10 +12,13 @@ namespace exceptxx
     class BaseException : public exception
     {
     public:
+        ///////////////////////////////////////////////////
+        // Error code definitions (platform dependent)
+
 #ifdef _WIN32
-        using Code = winapi::HRESULT;
-        static const Code kSuccess = winapi::HR_S_OK;
-        static const Code kFailure = winapi::HR_E_FAIL;
+        using Code = HRESULT;
+        static const Code kSuccess = HR_S_OK;
+        static const Code kFailure = HR_E_FAIL;
 #else
         using Code = int;
         static const Code kSuccess = 0;
@@ -24,6 +28,27 @@ namespace exceptxx
         BaseException(const char* func, size_t line, string&& message) : m_func(func), m_line(line), m_message(move(message))
         {
         }
+
+        ///////////////////////////////////////////////////
+        // Non-virtual getters
+
+        const char* func() const
+        {
+            return m_func;
+        }
+
+        size_t line() const
+        {
+            return m_line;
+        }
+
+        const string& message() const
+        {
+            return m_message;
+        }
+
+        ///////////////////////////////////////////////////
+        // Virtual getters
 
         virtual Code code() const
         {
@@ -39,9 +64,15 @@ namespace exceptxx
             return "";
         }
 
+        ///////////////////////////////////////////////////
+        // Clone movable interface
+
         virtual unique_ptr<BaseException> cloneMove() = 0;
 
-        virtual char const* what() const
+        ///////////////////////////////////////////////////
+        // std::exception interface
+
+        virtual char const* what() const override
         {
             if (m_what.empty())
             {
@@ -67,13 +98,13 @@ namespace exceptxx
                 }
 
                 ss << "Error: " << error() << " (" << tag() << ")" << endl;
-                ss << "Source: " << m_func << ":" << m_line << endl;
+                ss << "Source: " << m_func << ":" << m_line;
 
                 m_what = ss.str();
             }
 
             return m_what.c_str();
-        }
+        }        
 
     protected:
         template<class T>

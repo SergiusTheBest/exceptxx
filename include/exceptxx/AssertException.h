@@ -1,5 +1,7 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
+#include <exceptxx/ThrowHelper.h>
 #include <cassert>
 
 namespace exceptxx
@@ -38,4 +40,4 @@ namespace exceptxx
     };
 }
 
-#define CHECK_ASSERT(cond)          if (!cond) assert(!#cond),THROW_HELPER(AssertException, #cond)
+#define CHECK_ASSERT(cond)      if (!(cond)) assert(!#cond),THROW_HELPER(AssertException, #cond)

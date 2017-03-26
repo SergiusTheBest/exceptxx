@@ -1,14 +1,14 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 #include <exceptxx/ThrowHelper.h>
-#include <exceptxx/Util.h>
 
 namespace exceptxx
 {
     class Win32Exception : public BaseException
     {
     public:
-        using Error = winapi::DWORD;
+        using Error = DWORD;
 
         Win32Exception(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
         {
@@ -16,7 +16,7 @@ namespace exceptxx
 
         virtual Code code() const override
         {
-            return winapi::HresultFromWin32(m_error);
+            return HresultFromWin32(m_error);
         }
 
         virtual const char* tag() const override
@@ -48,7 +48,7 @@ namespace exceptxx
 }
 
 #define THROW_WIN32(error)              THROW_HELPER(Win32Exception, error)
-#define CHECK_WIN32(error)              if (auto exceptxxLocalError = error) THROW_WIN32(exceptxxLocalError)
-#define THROW_LAST_WIN32()              THROW_WIN32(exceptxx::winapi::GetLastError())
+#define CHECK_WIN32(error)              if (auto exceptxxLocalError = static_cast<exceptxx::Win32Exception::Error>(error)) THROW_WIN32(exceptxxLocalError)
+#define THROW_LAST_WIN32()              THROW_WIN32(exceptxx::GetLastError())
 #define THROW_WIN32_IF(cond, error)     if (cond) THROW_WIN32(error)
 #define THROW_LAST_WIN32_IF(cond)       if (cond) THROW_LAST_WIN32()

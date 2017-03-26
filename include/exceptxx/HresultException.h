@@ -1,14 +1,14 @@
 #pragma once
+#include <exceptxx/Util.h>
 #include <exceptxx/BaseException.h>
 #include <exceptxx/ThrowHelper.h>
-#include <exceptxx/Util.h>
 
 namespace exceptxx
 {
     class HresultException : public BaseException
     {
     public:
-        using Error = winapi::HRESULT;
+        using Error = HRESULT;
 
         HresultException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
         {
@@ -48,7 +48,7 @@ namespace exceptxx
 }
 
 #define THROW_HRESULT(error)            THROW_HELPER(HresultException, error)
-#define CHECK_HRESULT(error)            if (auto exceptxxLocalError = error) if (exceptxxLocalError < 0) THROW_HRESULT(exceptxxLocalError)
-#define THROW_LAST_HRESULT()            THROW_HRESULT(exceptxx::winapi::HresultFromWin32(exceptxx::winapi::GetLastError()))
+#define CHECK_HRESULT(error)            if (auto exceptxxLocalError = static_cast<exceptxx::HresultException::Error>(error)) if (exceptxxLocalError < 0) THROW_HRESULT(exceptxxLocalError)
+#define THROW_LAST_HRESULT()            THROW_HRESULT(exceptxx::HresultFromWin32(exceptxx::GetLastError()))
 #define THROW_HRESULT_IF(cond, error)   if (cond) THROW_HRESULT(error)
 #define THROW_LAST_HRESULT_IF(cond)     if (cond) THROW_LAST_HRESULT()
