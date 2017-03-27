@@ -28,4 +28,4 @@ namespace exceptxx
     };
 }
 
-#define MAKE_STD_EXCEPTION(e)   std::unique_ptr<exceptxx::BaseException>(new exceptxx::StdException(__func__, __LINE__, e.what()))
+#define EXCEPTXX_MAKE_STD_EXCEPTION(e)   std::unique_ptr<exceptxx::BaseException>(new exceptxx::StdException(__func__, __LINE__, e.what()))

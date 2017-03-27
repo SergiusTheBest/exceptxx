@@ -6,9 +6,9 @@ namespace exceptxx
     using namespace std;
 
 #ifdef _WIN32
-#   define EXCEPT_XX_NOEXCEPT
+#   define EXCEPTXX_NOEXCEPT
 #else
-#   define EXCEPT_XX_NOEXCEPT   noexcept
+#   define EXCEPTXX_NOEXCEPT    noexcept
 #endif
 
 #ifdef _WIN32
