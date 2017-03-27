@@ -43,14 +43,14 @@ namespace exceptxx
 
 #ifdef _WIN32
             if (0 != ::strerror_s(buffer, sizeof(buffer), m_error))
-#else
-            if (0 != ::strerror_r(m_error, buffer, sizeof(buffer)))
-#endif
             {
                 return "Unknown error code";
             }
 
             return buffer;
+#else
+            return ::strerror_r(m_error, buffer, sizeof(buffer));
+#endif
         }
 
         virtual unique_ptr<BaseException> cloneMove() override
