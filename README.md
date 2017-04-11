@@ -16,3 +16,6 @@ This library greatly improves and simplifies usage of C++ exceptions. It provide
   - errno
   - precondition
   - assert
+  
+# License
+ExceptXX is licensed under the [MPL version 2.0](http://mozilla.org/MPL/2.0/). You can freely use it in your commercial or opensource software.
