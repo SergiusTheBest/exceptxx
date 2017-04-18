@@ -5,11 +5,13 @@ This library greatly improves and simplifies usage of C++ exceptions. It provide
 
 ## Features
 - header-only
-- requires C++11
 - cross-platform: linux, windows, macos (msvc, gcc, clang, mingw, mingw-64)
+- requires C++11
 - no logic in catch blocks
-- convert exception to return value
-- exceptions for:
+- exceptions are convertible to return codes
+- exceptions carry information about throwing place (function name, line number), error code and description
+- a convenient way to attach an arbitrary user message to exception
+- ready-made exceptions:
   - win32
   - ntstatus
   - hresult
