@@ -60,6 +60,29 @@ At first your project needs to know about exceptxx. For that you have to:
 
 ## Step 2: Throwing exceptions
 
+ExceptXX exceptions have to be thrown using special macros. There are 2 families of them:
+- `THROW_...(err)`
+- `CHECK_...(err)`
+
+`THROW_...` macros throw an exception with the specified error code while `CHECK_...` macros check the error code to be a failure error code and only then throw an exception.
+
+Also macros can have a condition: `THROW_..._IF(cond, err)`. In this case an exception is thrown only when the condition is true.
+
+The following modification of exception throwing macros is designed to be used with API that has a notion of a last error code:
+- `THROW_LAST_...()`
+- `CHECK_LAST_...()`
+
+These macros can have a condition too:
+- `THROW_LAST_..._IF(cond)`
+- `CHECK_LAST_..._IF(cond)`
+
+Examples:
+```cpp
+THROW_HRESULT(E_ACCESS);
+CHECK_ERRNO(res);
+THROW_LAST_WIN32_IF(!res);
+```
+
 ## Step 3: Catching exceptions
 
 # Samples
