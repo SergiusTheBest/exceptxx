@@ -24,4 +24,4 @@ namespace exceptxx
     };
 }
 
-#define THROW_HELPER(type, code)    exceptxx::ThrowHelper<exceptxx::type>(code, __func__, __LINE__) <<= std::ostringstream()
+#define THROW_HELPER(type, code)    exceptxx::ThrowHelper<exceptxx::type>(code, EXCEPTXX_GET_FUNC(), __LINE__) <<= std::ostringstream()

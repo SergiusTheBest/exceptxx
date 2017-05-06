@@ -5,10 +5,18 @@ namespace exceptxx
 {
     using namespace std;
 
-#ifdef _WIN32
-#   define EXCEPTXX_NOEXCEPT
+#ifdef _MSC_VER
+#   define EXCEPTXX_WHAT_NOEXCEPT
 #else
-#   define EXCEPTXX_NOEXCEPT    noexcept
+#   define EXCEPTXX_WHAT_NOEXCEPT   noexcept
+#endif
+
+#ifdef _MSC_VER
+#   define EXCEPTXX_GET_FUNC()      __FUNCTION__
+#elif defined(__BORLANDC__)
+#   define EXCEPTXX_GET_FUNC()      __FUNC__
+#else
+#   define EXCEPTXX_GET_FUNC()      __PRETTY_FUNCTION__
 #endif
 
 #ifdef _WIN32
