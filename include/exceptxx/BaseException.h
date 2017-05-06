@@ -77,25 +77,14 @@ namespace exceptxx
             if (m_what.empty())
             {
                 ostringstream ss;
-                ss << "Text: ";
-
-                string desc = description();
+                ss << "Text: " << description();
 
                 if (!m_message.empty())
                 {
-                    ss << m_message;
-
-                    if (!desc.empty())
-                    {
-                        ss << " (" << desc << ")";
-                    }
-
-                    ss << endl;
+                    ss << " (" << m_message << ")";
                 }
-                else if (!desc.empty())
-                {
-                    ss << desc << endl;
-                }
+
+                ss << endl;
 
                 ss << "Error: " << error() << " (" << tag() << ")" << endl;
                 ss << "Source: " << m_func << ":" << m_line;
