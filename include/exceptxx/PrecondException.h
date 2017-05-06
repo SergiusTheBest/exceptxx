@@ -48,4 +48,5 @@ namespace exceptxx
     };
 }
 
+#define THROW_PRECOND()         THROW_HELPER(PrecondException, "")
 #define CHECK_PRECOND(cond)     if (!(cond)) THROW_HELPER(PrecondException, #cond)
