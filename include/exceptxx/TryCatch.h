@@ -14,8 +14,8 @@
 #define EXCEPTXX_TRY(...)                               EXCEPTXX_MACRO_CHOOSER(__VA_ARGS__)(__VA_ARGS__)
 
 #define EXCEPTXX_CATCH(var) \
-    catch(exceptxx::BaseException& e) { var = e.cloneMove(); } \
-    catch(const std::exception& e) { var = EXCEPTXX_MAKE_STD_EXCEPTION(e); }
+    catch(exceptxx::BaseException& incomingException) { var = incomingException.cloneMove(); } \
+    catch(const std::exception& incomingException) { var = EXCEPTXX_MAKE_STD_EXCEPTION(incomingException); }
 
 #define XX_TRY(...)     EXCEPTXX_TRY(__VA_ARGS__)
 #define XX_CATCH(var)   EXCEPTXX_CATCH(var)
