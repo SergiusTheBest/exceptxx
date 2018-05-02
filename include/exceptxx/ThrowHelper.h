@@ -13,7 +13,7 @@ namespace exceptxx
         {
         }
 
-        void operator<<=(const basic_ostream<char>& ostr)
+        EXCEPTXX_NORETURN void operator<<=(const basic_ostream<char>& ostr)
         {
             throw T(m_error, m_func, m_line, static_cast<const ostringstream&>(ostr).str());
         }

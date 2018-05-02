@@ -19,6 +19,14 @@ namespace exceptxx
 #   define EXCEPTXX_GET_FUNC()      __PRETTY_FUNCTION__
 #endif
 
+#ifdef _MSC_VER
+#   define EXCEPTXX_NORETURN        __declspec(noreturn)
+#elif defined(__GNUC__)
+#   define EXCEPTXX_NORETURN        __attribute__((__noreturn__))
+#else
+#   define EXCEPTXX_NORETURN
+#endif
+
 #ifdef _WIN32
     using HRESULT = long;
     using DWORD = unsigned long;
