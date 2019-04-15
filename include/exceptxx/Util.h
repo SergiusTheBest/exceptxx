@@ -62,18 +62,39 @@ namespace exceptxx
     extern "C" __declspec(dllimport) HMODULE __stdcall GetModuleHandleW(const wchar_t* lpModuleName);
     extern "C" __declspec(dllimport) DWORD __stdcall FormatMessageA(DWORD dwFlags, const void* lpSource, DWORD dwMessageId, DWORD dwLanguageId, char* lpBuffer, DWORD nSize, va_list *Arguments);
 
-    namespace internetError
+    struct ErrorSource
     {
-        const int       kBase = 12000; //INTERNET_ERROR_BASE
-        const int       kLast = 12200; //INTERNET_ERROR_LAST
-        const wchar_t   kModule[] = L"wininet";
-    }
+        unsigned long first;
+        unsigned long last;
+        const wchar_t* moduleName;
+    };
+
+    const ErrorSource kErrorSources[] =
+    {
+        {
+            12000, //INTERNET_ERROR_BASE
+            12200, //INTERNET_ERROR_LAST
+            L"wininet"
+        },
+        {
+            0x80005000, //E_ADS_BAD_PATHNAME
+            0x80005080,
+            L"activeds"
+        },
+    };
 
     inline string formatMessage(unsigned long messageId, HMODULE module = nullptr)
     {
-        if (messageId >= internetError::kBase && messageId <= internetError::kLast)
+        if (!module)
         {
-            module = GetModuleHandleW(internetError::kModule);
+            for (const auto& errorSource : kErrorSources)
+            {
+                if (messageId >= errorSource.first && messageId <= errorSource.last)
+                {
+                    module = GetModuleHandleW(errorSource.moduleName);
+                    break;
+                }
+            }
         }
 
         char buffer[0x200] = {};
@@ -91,11 +112,8 @@ namespace exceptxx
             return "Unknown error code";
         }
 
-        length -= 2;
-        if (buffer[length - 1] == '.')
-        {
-            --length;
-        }
+        // trim trailing whitespaces
+        for (char c = buffer[length - 1]; length > 0 && (c == ' ' || c == '.' || c == '\n' || c == '\r'); --length, c = buffer[length - 1]);
 
         return string(buffer, length);
     }
