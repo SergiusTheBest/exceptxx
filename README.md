@@ -100,6 +100,6 @@ There are a number of samples that demonstrate various aspects of using exceptxx
 |[Win32](samples/Win32)||
   
 # License
-ExceptXX is licensed under the [MPL version 2.0](http://mozilla.org/MPL/2.0/). You can freely use it in your commercial or opensource software.
+ExceptXX is licensed under the [MIT license](https://choosealicense.com/licenses/mit). You can freely use it in your commercial or opensource software.
 
 # Version history
