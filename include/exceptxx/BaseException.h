@@ -65,9 +65,10 @@ namespace exceptxx
         }
 
         ///////////////////////////////////////////////////
-        // Clone movable interface
+        // Virtual helpers
 
         virtual unique_ptr<BaseException> cloneMove() = 0;
+        virtual void rethrow() = 0;
 
         ///////////////////////////////////////////////////
         // std::exception interface
@@ -93,13 +94,6 @@ namespace exceptxx
             }
 
             return m_what.c_str();
-        }        
-
-    protected:
-        template<class T>
-        unique_ptr<BaseException> cloneMoveImpl(T* p)
-        {
-            return unique_ptr<BaseException>(new T(move(*p)));
         }
 
     private:

@@ -1,16 +1,16 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 
 namespace exceptxx
 {
-    class NtstatusException : public BaseException
+    class NtstatusException : public BaseExceptionImpl<NtstatusException>
     {
     public:
         using Error = NTSTATUS;
 
-        NtstatusException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
+        NtstatusException(Error error, const char* func, size_t line, string&& message) : BaseExceptionImpl(func, line, move(message)), m_error(error)
         {
         }
 
@@ -35,11 +35,6 @@ namespace exceptxx
         virtual string description() const override
         {
             return formatMessage(m_error, GetModuleHandleW(L"ntdll"));
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

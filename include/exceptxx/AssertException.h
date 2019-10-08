@@ -1,17 +1,17 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 #include <cassert>
 
 namespace exceptxx
 {
-    class AssertException : public BaseException
+    class AssertException : public BaseExceptionImpl<AssertException>
     {
     public:
         using Error = string;
 
-        AssertException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
+        AssertException(Error error, const char* func, size_t line, string&& message) : BaseExceptionImpl(func, line, move(message)), m_error(error)
         {
         }
 
@@ -28,11 +28,6 @@ namespace exceptxx
         virtual string description() const override
         {
             return "Assertion failed";
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

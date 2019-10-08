@@ -1,16 +1,16 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 
 namespace exceptxx
 {
-    class Win32Exception : public BaseException
+    class Win32Exception : public BaseExceptionImpl<Win32Exception>
     {
     public:
         using Error = DWORD;
 
-        Win32Exception(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
+        Win32Exception(Error error, const char* func, size_t line, string&& message) : BaseExceptionImpl(func, line, move(message)), m_error(error)
         {
         }
 
@@ -35,11 +35,6 @@ namespace exceptxx
         virtual string description() const override
         {
             return formatMessage(m_error);
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

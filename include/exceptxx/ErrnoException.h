@@ -1,17 +1,17 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 #include <string.h>
 
 namespace exceptxx
 {
-    class ErrnoException : public BaseException
+    class ErrnoException : public BaseExceptionImpl<ErrnoException>
     {
     public:
         using Error = int;
 
-        ErrnoException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
+        ErrnoException(Error error, const char* func, size_t line, string&& message) : BaseExceptionImpl(func, line, move(message)), m_error(error)
         {
         }
 
@@ -51,11 +51,6 @@ namespace exceptxx
 #else
             return ::strerror_r(m_error, buffer, sizeof(buffer));
 #endif
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

@@ -1,12 +1,12 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 #include <cuda_runtime_api.h>
 
 namespace exceptxx
 {
-    class CudaException : public BaseException
+    class CudaException : public BaseExceptionImpl<CudaException>
     {
     public:
         using Error = cudaError_t;
@@ -36,11 +36,6 @@ namespace exceptxx
         virtual string description() const override
         {
             return cudaGetErrorString(m_error);
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

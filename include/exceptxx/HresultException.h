@@ -1,16 +1,16 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 
 namespace exceptxx
 {
-    class HresultException : public BaseException
+    class HresultException : public BaseExceptionImpl<HresultException>
     {
     public:
         using Error = HRESULT;
 
-        HresultException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
+        HresultException(Error error, const char* func, size_t line, string&& message) : BaseExceptionImpl(func, line, move(message)), m_error(error)
         {
         }
 
@@ -35,11 +35,6 @@ namespace exceptxx
         virtual string description() const override
         {
             return formatMessage(m_error);
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

@@ -34,7 +34,7 @@ namespace exceptxx
             return m_ex->code();
         }
 
-        const BaseException* operator->() const
+        BaseException* operator->()
         {
             return m_ex.get();
         }

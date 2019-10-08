@@ -1,13 +1,13 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 #include <nppversion.h>
 #include <nppdefs.h>
 
 namespace exceptxx
 {
-    class NppException : public BaseException
+    class NppException : public BaseExceptionImpl<NppException>
     {
     public:
         using Error = NppStatus;
@@ -292,11 +292,6 @@ namespace exceptxx
             }
 
             return "<unknown>";
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

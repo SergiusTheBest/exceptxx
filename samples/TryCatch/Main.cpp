@@ -37,6 +37,28 @@ int main()
     }
 
     //
+    // Ability to rethrow exception variable.
+    //
+
+    try
+    {
+        XX_TRY()
+        {
+            CHECK_ERRNO(EBADF);
+        }
+        XX_CATCH(ex);
+
+        if (ex)
+        {
+            ex->rethrow();
+        }
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what() << endl << endl;
+    }
+
+    //
     // Explicitly declare exception variable and use it in the catch block.
     //
 

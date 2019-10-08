@@ -1,13 +1,13 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 
 namespace exceptxx
 {
-    class StdException : public BaseException
+    class StdException : public BaseExceptionImpl<StdException>
     {
     public:
-        StdException(string description, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_description(description)
+        StdException(string description, const char* func, size_t line, string&& message) : BaseExceptionImpl(func, line, move(message)), m_description(description)
         {
         }
 
@@ -24,11 +24,6 @@ namespace exceptxx
         virtual string description() const override
         {
             return m_description;
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:

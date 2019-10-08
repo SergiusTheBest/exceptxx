@@ -1,16 +1,16 @@
 #pragma once
 #include <exceptxx/Util.h>
-#include <exceptxx/BaseException.h>
+#include <exceptxx/BaseExceptionImpl.h>
 #include <exceptxx/ThrowHelper.h>
 
 namespace exceptxx
 {
-    class PrecondException : public BaseException
+    class PrecondException : public BaseExceptionImpl<PrecondException>
     {
     public:
         using Error = string;
 
-        PrecondException(Error error, const char* func, size_t line, string&& message) : BaseException(func, line, move(message)), m_error(error)
+        PrecondException(Error error, const char* func, size_t line, string&& message) : BaseExceptionImpl(func, line, move(message)), m_error(error)
         {
         }
 
@@ -36,11 +36,6 @@ namespace exceptxx
         virtual string description() const override
         {
             return "Precondition failed";
-        }
-
-        virtual unique_ptr<BaseException> cloneMove() override
-        {
-            return cloneMoveImpl(this);
         }
 
     private:
