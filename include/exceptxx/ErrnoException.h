@@ -48,6 +48,13 @@ namespace exceptxx
             }
 
             return buffer;
+#elif (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE
+            if (0 != ::strerror_r(m_error, buffer, sizeof(buffer)))
+            {
+                return "Unknown error code";
+            }
+
+            return buffer;
 #else
             return ::strerror_r(m_error, buffer, sizeof(buffer));
 #endif
