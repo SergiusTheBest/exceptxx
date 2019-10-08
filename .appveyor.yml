@@ -10,8 +10,6 @@ environment:
       generator: "Visual Studio 15 2017 Win64"
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       generator: "Visual Studio 15 2017"
-    - generator: "MinGW Makefiles"
-      dialect: mingw-w64
 
 matrix:
   fast_finish: true

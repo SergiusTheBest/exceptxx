@@ -46,7 +46,7 @@ Source: main:12
 
 ## Features
 - Header-only
-- Cross-platform: Linux, Windows, macOS (msvc, gcc, clang, mingw, mingw-64)
+- Cross-platform: Linux, Windows, macOS (msvc, gcc, clang)
 - Requires C++11
 - Exceptions are convertible to return codes
 - Exceptions carry information about throwing place (function name, line number), error code and description
