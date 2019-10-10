@@ -55,6 +55,13 @@ namespace exceptxx
             }
 
             return buffer;
+#elif __APPLE__
+            if (0 != ::strerror_r(m_error, buffer, sizeof(buffer)))
+            {
+                return "Unknown error code";
+            }
+
+            return buffer;
 #else
             return ::strerror_r(m_error, buffer, sizeof(buffer));
 #endif
