@@ -48,7 +48,7 @@ namespace exceptxx
             }
 
             return buffer;
-#elif (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE
+#elif ((_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600) && ! _GNU_SOURCE) || defined(__APPLE__)
             if (0 != ::strerror_r(m_error, buffer, sizeof(buffer)))
             {
                 return "Unknown error code";
