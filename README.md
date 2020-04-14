@@ -69,7 +69,7 @@ To start using exceptxx you need to make 3 simple steps.
 At first your project needs to know about exceptxx. For that you have to:
 
 1. Add `exceptxx/include` to the project include paths
-2. Add `#include <exceptxx/{{{desired exception}}.h>` into your cpp/h files (if you have precompiled headers it is a good place to add this include there)
+2. Add `#include <exceptxx/{{desired exception}}.h>` into your cpp/h files (if you have precompiled headers it is a good place to add this include there)
 
 ## Step 2: Throwing exceptions
 
