@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 
+// These windows structs must be in a global namespace
+struct HINSTANCE__;
+
 namespace exceptxx
 {
     using namespace std;
@@ -31,7 +34,7 @@ namespace exceptxx
     using HRESULT = long;
     using DWORD = unsigned long;
     using NTSTATUS = long;
-    using HMODULE = void*;
+    using HMODULE = HINSTANCE__*;
 
     const HRESULT HR_S_OK = 0;
     const HRESULT HR_E_FAIL = 0x80004005L;
