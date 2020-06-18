@@ -1,4 +1,4 @@
-﻿#include <exceptxx/NtstatusException.h>
+﻿#include <exceptxx/NtStatusException.h>
 #include <Windows.h>
 #include <winternl.h>
 #include <iostream>
