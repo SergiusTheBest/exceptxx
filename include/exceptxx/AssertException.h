@@ -36,3 +36,4 @@ namespace exceptxx
 }
 
 #define CHECK_ASSERT(cond)      if (!(cond)) assert(#cond && false),THROW_HELPER(AssertException, #cond)
+#define THROW_ASSERT()          assert("Unconditional assert" && false),THROW_HELPER(AssertException, "Unconditional assert")
