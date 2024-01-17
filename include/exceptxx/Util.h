@@ -102,7 +102,7 @@ namespace exceptxx
 
         char buffer[0x200] = {};
 
-        auto length = FormatMessageA(
+        auto length = exceptxx::FormatMessageA(
             (module ? kFormatFromHmodule : kFormatFromSystem) | kFormatIgnoreInserts | kFormatMaxWidthMask,
             module,
             messageId,
