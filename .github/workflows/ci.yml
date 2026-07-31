@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, main, develop ]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.rst"
+      - "LICENSE"
+      - "docs/**"
+  pull_request:
+    branches: [ master, main, develop ]
+    paths-ignore:
+      - "**/*.md"
+      - "**/*.rst"
+      - "LICENSE"
+      - "docs/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.os }} / ${{ matrix.build_type }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        build_type: [Debug, Release]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+
+      - name: Build
+        run: cmake --build build --config ${{ matrix.build_type }}

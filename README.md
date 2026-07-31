@@ -1,5 +1,5 @@
 # ExceptXX: C++ exception handling library
-[![Build Status](https://travis-ci.org/SergiusTheBest/exceptxx.svg?branch=master)](https://travis-ci.org/SergiusTheBest/exceptxx) [![Build status](https://ci.appveyor.com/api/projects/status/nyo8dtyw9kfq3xhf/branch/master?svg=true)](https://ci.appveyor.com/project/SergiusTheBest/exceptxx/branch/master)
+[![CI](https://github.com/SergiusTheBest/exceptxx/actions/workflows/ci.yml/badge.svg)](https://github.com/SergiusTheBest/exceptxx/actions/workflows/ci.yml) [![Build status](https://ci.appveyor.com/api/projects/status/nyo8dtyw9kfq3xhf/branch/master?svg=true)](https://ci.appveyor.com/project/SergiusTheBest/exceptxx/branch/master)
 
 - [Intoduction](#intoduction)
   - [Features](#features)
