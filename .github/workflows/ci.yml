@@ -8,6 +8,7 @@ on:
       - "**/*.rst"
       - "LICENSE"
       - "docs/**"
+      - ".gitignore"
   pull_request:
     branches: [ master, main, develop ]
     paths-ignore:
@@ -15,6 +16,7 @@ on:
       - "**/*.rst"
       - "LICENSE"
       - "docs/**"
+      - ".gitignore"
   workflow_dispatch:
 
 jobs:
